@@ -49,6 +49,15 @@ logs/
 libraries/com/google/guava/guava/15.0/guava-15.0.jar
 ```
 
+## How to Use
+```
+	private GameFolder gameFolder = new GameFolder("customlauncher");
+	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher Template AlternativeAPI", 950, 600, true);
+	private GameLinks gameLinks = new GameLinks("http://127.0.0.1/alternative/1_16_3/", "1.16.3.json");
+	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.FORGE_1_13_HIGHER);
+	private GameForge newForge = new GameForge("fmlclient", "34.1.0", "1.16.3", "net.minecraftforge", "20200911.084530");
+  ```
+
 
 
 You can use NodeJS for better performances to check custom files
