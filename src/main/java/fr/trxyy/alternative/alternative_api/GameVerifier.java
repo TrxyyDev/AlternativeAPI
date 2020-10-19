@@ -169,7 +169,7 @@ public class GameVerifier {
 			while ((i = read.readLine()) != null) {
 				String correctName = i.replace('/', File.separatorChar);
 				if (correctName.endsWith("\\") || correctName.endsWith("/")) {
-					Logger.log(correctName + " is a folder.");
+//					Logger.log(correctName + " is a folder.");
 					this.ignoreListFolder.add(correctName);
 				}
 				else {

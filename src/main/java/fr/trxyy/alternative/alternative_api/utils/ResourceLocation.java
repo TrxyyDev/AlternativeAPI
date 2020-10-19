@@ -28,6 +28,7 @@ public class ResourceLocation {
 		try {
 			theMedia = new Media(resourceUrl.toURI().toString());
 		} catch (URISyntaxException e) {
+			e.printStackTrace();
 		}
 		return theMedia;
 	}

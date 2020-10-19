@@ -13,8 +13,8 @@ public class LauncherTextField extends TextField {
 	 * @param root The Pane to add the field
 	 */
 	public LauncherTextField(Pane root) {
-		setSize(100, 30);
-		setPosition(0, 0);
+		this.setSize(100, 30);
+		this.setPosition(0, 0);
 		root.getChildren().add(this);
 	}
 
@@ -24,9 +24,9 @@ public class LauncherTextField extends TextField {
 	 * @param root The pane to add the field
 	 */
 	public LauncherTextField(String s, Pane root) {
-		setText(s);
-		setSize(100, 30);
-		setPosition(0, 0);
+		this.setText(s);
+		this.setSize(100, 30);
+		this.setPosition(0, 0);
 		root.getChildren().add(this);
 	}
 
@@ -39,8 +39,8 @@ public class LauncherTextField extends TextField {
 	 * @param root The Pane to add the field
 	 */
 	public LauncherTextField(int w, int h, int pX, int pY, Pane root) {
-		setSize(w, h);
-		setPosition(pX, pY);
+		this.setSize(w, h);
+		this.setPosition(pX, pY);
 		root.getChildren().add(this);
 	}
 
@@ -54,9 +54,9 @@ public class LauncherTextField extends TextField {
 	 * @param root The Pane to add the field
 	 */
 	public LauncherTextField(String s, int w, int h, int pX, int pY, Pane root) {
-		setText(s);
-		setSize(w, h);
-		setPosition(pX, pY);
+		this.setText(s);
+		this.setSize(w, h);
+		this.setPosition(pX, pY);
 		root.getChildren().add(this);
 	}
 	
@@ -66,7 +66,7 @@ public class LauncherTextField extends TextField {
 	 * @param height_ The height
 	 */
 	public void setSize(int width_, int height_) {
-		setPrefSize(width_, height_);
+		this.setPrefSize(width_, height_);
 	}
 
 	/**
@@ -75,8 +75,8 @@ public class LauncherTextField extends TextField {
 	 * @param posY The position Y
 	 */
 	public void setPosition(int posX, int posY) {
-		setLayoutX(posX);
-		setLayoutY(posY);
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public class LauncherTextField extends TextField {
 	 * @param s The text to display
 	 */
 	public void setVoidText(String s) {
-        setPromptText(s);
+		this.setPromptText(s);
 	}
 
 }

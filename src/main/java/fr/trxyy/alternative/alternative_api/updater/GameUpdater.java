@@ -135,59 +135,58 @@ public class GameUpdater extends Thread {
 		/** -------------------------------------- */
 		HOST = engine.getGameLinks().getBaseUrl();
 		if (this.isOnline()) {
-			Logger.log("\n\n");
 			Logger.log("=============UPDATING GAME==============");
 
 			this.setCurrentInfoText("Preparation de la mise a jour.");
 
+			Logger.log("Updating Local Minecraft Version.");
+			Logger.log("========================================");
 			this.downloadVersion();
 
 			this.verifier = new GameVerifier(this.engine);
-			Logger.log("Getting ignore/delete list   [Extra Step]");
+			Logger.log("Getting ignore/delete list   [Step 1/6]");
 			Logger.log("========================================");
 
 			this.setCurrentInfoText("Recuperation de la ignoreList/deleteList.");
 
 			this.verifier.getIgnoreList();
 			this.verifier.getDeleteList();
-			Logger.log("Indexing version              [Step 1/5]");
+			Logger.log("Indexing version              [Step 2/6]");
 			Logger.log("========================================");
 
-			this.setCurrentInfoText("Acquisition de la version Minecraft.");
+			this.setCurrentInfoText("Indexion de la version Minecraft.");
 
 			this.indexVersion();
-			Logger.log("Indexing assets               [Step 2/5]");
+			Logger.log("Indexing assets               [Step 3/6]");
 			Logger.log("========================================");
 
 			this.setCurrentInfoText("Acquisition des fichiers de ressources.");
 
 			this.indexAssets();
 			if (!this.engine.getGameStyle().equals(GameStyle.VANILLA)) {
-				Logger.log("Indexing custom jars        [Extra Step]");
+				Logger.log("Indexing custom jars         [3-bonus/6]");
 				Logger.log("========================================");
 
 				this.setCurrentInfoText("Acquisition des fichiers perso requis.");
 
 				GameParser.getFilesToDownload(engine);
 			}
-			Logger.log("Updating assets               [Step 3/5]");
+			Logger.log("Updating assets               [Step 4/6]");
 			Logger.log("========================================");
 
 			this.setCurrentInfoText("Telechargement des ressources.");
 
 			this.updateAssets();
-			Logger.log("Updating jars/libraries       [Step 4/5]");
+			Logger.log("Updating jars/libraries       [Step 5/6]");
 			Logger.log("========================================");
 
 			this.setCurrentInfoText("Telechargement des librairies.");
 
 			this.updateJars();
 			if (!engine.getGameStyle().equals(GameStyle.VANILLA)) {
-				Logger.log("Updating custom jars        [Extra Step]");
+				Logger.log("Updating custom jars         [5-bonus/6]");
 				Logger.log("========================================");
-
 				this.setCurrentInfoText("Telechargement des ressources perso.");
-
 				this.updateCustomJars();
 			}
 			this.customJarsExecutor.shutdown();
@@ -196,18 +195,16 @@ public class GameUpdater extends Thread {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			Logger.log("Cleaning installation         [Step 5/5]");
+			Logger.log("Cleaning installation         [Step 6/6]");
 			Logger.log("========================================");
 
 			this.setCurrentInfoText("Verification de l'installation.");
 
 			this.verifier.verify();
-			Logger.log("\n\n");
 			Logger.log("========================================");
 			Logger.log("|      Update Finished. Launching.     |");
 			Logger.log("|            Version " + minecraftVersion.getId() + "            |");
 			Logger.log("|          Runtime: " + System.getProperty("java.version") + "          |");
-			Logger.log("|             Build ID:" + generateLot() + "           |");
 			Logger.log("========================================");
 			Logger.log("\n\n");
 			Logger.log("==============GAME OUTPUT===============");
@@ -238,7 +235,6 @@ public class GameUpdater extends Thread {
 				GameParser.getFilesToDownloadOffline(engine);
 			}
 			
-			Logger.log("\n\n");
 			Logger.log("========================================");
 			Logger.log("|      Update Finished. Launching.     |");
 			Logger.log("|            Version " + minecraftLocalVersion.getId() + "            |");
@@ -259,13 +255,13 @@ public class GameUpdater extends Thread {
 	}
 
 	/**
-	 * Download Minecraft Json version
+	 * Download Minecraft Json version at Every Launch to be up to date.
 	 */
 	public void downloadVersion() {
 		File theFile = new File(engine.getGameFolder().getCacheDir(), engine.getGameLinks().getJsonName());
 		GameVerifier.addToFileList(theFile.getAbsolutePath().replace(engine.getGameFolder().getCacheDir().getAbsolutePath(), "").replace('/', File.separatorChar));
 		try {
-			URL url = new URL(engine.getGameLinks().getJsonUrl());
+			URL url = new URL(this.engine.getGameLinks().getJsonUrl());
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			float totalDataRead = 0;
 			BufferedInputStream in = new BufferedInputStream(connection.getInputStream());

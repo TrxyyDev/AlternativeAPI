@@ -3,9 +3,7 @@ package fr.trxyy.alternative.alternative_api_ui.base;
 import java.awt.Point;
 import java.io.IOException;
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
+import fr.trxyy.alternative.alternative_api.ApiConstants;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.maintenance.Maintenance;
 import fr.trxyy.alternative.alternative_api.utils.Logger;
@@ -44,23 +42,7 @@ public class LauncherBase {
 		if (OperatingSystem.getCurrentPlatform() == OperatingSystem.OSX || OperatingSystem.getCurrentPlatform() == OperatingSystem.LINUX || OperatingSystem.getCurrentPlatform() == OperatingSystem.SOLARIS) {
 			Logger.log("Il semblerait que vous utilisiez Mac/Linux.");
 			Logger.log("Si vous rencontrez des difficultés, rendez-vous sur:");
-			Logger.log("https://www.oracle.com/java/technologies/install-javafx-sdk.html");
-		}
-		
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException e) {
-			new LauncherAlert(e.toString(), AlertType.ERROR);
-			Logger.err(e.toString());
-		} catch (InstantiationException e) {
-			new LauncherAlert(e.toString(), AlertType.ERROR);
-			Logger.err(e.toString());
-		} catch (IllegalAccessException e) {
-			new LauncherAlert(e.toString(), AlertType.ERROR);
-			Logger.err(e.toString());
-		} catch (UnsupportedLookAndFeelException e) {
-			new LauncherAlert(e.toString(), AlertType.ERROR);
-			Logger.err(e.toString());
+			Logger.log("https://forum.alternative-api.fr/installer-jfx-sur-linux-aapi");
 		}
 
 		stage.initStyle(style);
@@ -132,9 +114,10 @@ public class LauncherBase {
 	private void displayCopyrights() {
 		Logger.log("========================================");
 		Logger.log("|    Thanks for using AlternativeAPI   |");
-		Logger.log("|         AlternativeAPI 1.2.65        |");
-		Logger.log("|           Version: RELEASE           |");
-		Logger.log("|           Author(s): Trxyy           |");
+		Logger.log("|         AlternativeAPI " + ApiConstants.getVersion() + "        |");
+		Logger.log("|           Version: " + ApiConstants.getVersionType() + "           |");
+		Logger.log("|            Author: " + ApiConstants.getAuthor() + "             |");
+		Logger.log("|           Helper(s): " + ApiConstants.getHelpers() + "         |");
 		Logger.log("========================================");
 	}	
 

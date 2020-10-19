@@ -24,14 +24,14 @@ public class LauncherLabel extends Label {
 	 * @param height_ The height
 	 */
 	public void setSize(int width_, int height_) {
-		setPrefSize(width_, height_);
+		this.setPrefSize(width_, height_);
 	}
 	
 	/**
 	 * Set the label invisible
 	 */
 	public void setInvisible() {
-		setBackground(null);
+		this.setBackground(null);
 	}
 
 	/**
@@ -40,8 +40,8 @@ public class LauncherLabel extends Label {
 	 * @param posY The position Y
 	 */
 	public void setPosition(int posX, int posY) {
-		setLayoutX(posX);
-		setLayoutY(posY);
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
 	}
 	
 	/**
@@ -50,8 +50,8 @@ public class LauncherLabel extends Label {
 	 * @param posY The position Y (double)
 	 */
 	public void setPosition(double posX, double posY) {
-		setLayoutX(posX);
-		setLayoutY(posY);
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class LauncherLabel extends Label {
 	 * @param value The value
 	 */
 	public void setAction(EventHandler<? super MouseEvent> value) {
-		onMouseClickedProperty().set(value);
+		this.onMouseClickedProperty().set(value);
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class LauncherLabel extends Label {
 	 * @param value The value
 	 */
     public final void setHover(EventHandler<? super MouseEvent> value) {
-        onMouseEnteredProperty().set(value);
+    	this.onMouseEnteredProperty().set(value);
     }
     
 	/**
@@ -75,6 +75,6 @@ public class LauncherLabel extends Label {
 	 * @param value The value
 	 */
     public final void setUnHover(EventHandler<? super MouseEvent> value) {
-        onMouseExitedProperty().set(value);
+    	this.onMouseExitedProperty().set(value);
     }
 }

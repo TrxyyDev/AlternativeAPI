@@ -12,7 +12,7 @@ public class Logger {
 	/**
 	 * Log Lines for console
 	 */
-	public static ArrayList<String> logLines = new ArrayList<String>();
+	private static ArrayList<String> logLines = new ArrayList<String>();
 
 	/**
 	 * Log a text
@@ -35,7 +35,7 @@ public class Logger {
 	/**
 	 * @return The current time
 	 */
-	public static String getTime() {
+	private static String getTime() {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		return "[" + sdf.format(cal.getTime()) + "]";

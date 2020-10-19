@@ -32,9 +32,9 @@ public class LauncherProgressBar extends ProgressBar {
 	 * @param height_ The height
 	 */
 	public void setSize(int width_, int height_) {
-		setPrefSize(width_, height_);
-		setWidth(width_);
-		setHeight(height_);
+		this.setPrefSize(width_, height_);
+		this.setWidth(width_);
+		this.setHeight(height_);
 	}
 	
 	/**
@@ -43,16 +43,16 @@ public class LauncherProgressBar extends ProgressBar {
 	 * @param height_ The height
 	 */
 	public void setSize(double width_, double height_) {
-		setPrefSize(width_, height_);
-		setWidth(width_);
-		setHeight(height_);
+		this.setPrefSize(width_, height_);
+		this.setWidth(width_);
+		this.setHeight(height_);
 	}
 	
 	/**
 	 * Set the progress bar invisible
 	 */
 	public void setInvisible() {
-		setBackground(null);
+		this.setBackground(null);
 	}
 
 	/**
@@ -61,8 +61,8 @@ public class LauncherProgressBar extends ProgressBar {
 	 * @param posY The position Y
 	 */
 	public void setPosition(int posX, int posY) {
-		setLayoutX(posX);
-		setLayoutY(posY);
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
 	}
 	
 	/**
@@ -71,8 +71,8 @@ public class LauncherProgressBar extends ProgressBar {
 	 * @param posY The position Y (double)
 	 */
 	public void setPosition(double posX, double posY) {
-		setLayoutX(posX);
-		setLayoutY(posY);
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
 	}
 	/**
 	 * Set the current file name

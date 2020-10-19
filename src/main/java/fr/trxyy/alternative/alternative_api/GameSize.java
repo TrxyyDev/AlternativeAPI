@@ -59,4 +59,50 @@ public enum GameSize {
 		return this.height;
 	}
 
+	/**
+	 * @param i The value as a int
+	 * @return The GameSize from the int
+	 */
+	public static GameSize getWindowSize(int i) {
+		if (i == 0) {
+			return GameSize.DEFAULT;
+		} else if (i == 1) {
+			return GameSize.SIZE_1024x768;
+		} else if (i == 2) {
+			return GameSize.SIZE_1280x1024;
+		} else if (i == 3) {
+			return GameSize.SIZE_1366x768;
+		} else if (i == 4) {
+			return GameSize.SIZE_1600x900;
+		} else if (i == 5) {
+			return GameSize.SIZE_1920x1080;
+		} else if (i == 6) {
+			return GameSize.SIZE_2560x1440;
+		}
+		return GameSize.DEFAULT;
+	}
+	
+	/**
+	 * @param value The value as a String
+	 * @return The GameSize from the String
+	 */
+	public static int getWindowSize(String value) {
+		if (value.equals("854x480")) {
+			return 0;
+		} else if (value.equals("1024x768")) {
+			return 1;
+		} else if (value.equals("1280x1024")) {
+			return 2;
+		} else if (value.equals("1366x768")) {
+			return 3;
+		} else if (value.equals("1600x900")) {
+			return 4;
+		} else if (value.equals("1920x1080")) {
+			return 5;
+		} else if (value.equals("2560x1440")) {
+			return 6;
+		}
+		return 0;
+	}
+	
 }

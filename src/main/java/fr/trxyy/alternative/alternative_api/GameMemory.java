@@ -35,4 +35,31 @@ public enum GameMemory {
 		return count;
 	}
 
+	public static GameMemory getMemory(double value) {
+		if (value == 0) {
+			return GameMemory.DEFAULT;
+		} else if (value == 1) {
+			return GameMemory.DEFAULT;
+		} else if (value == 2) {
+			return GameMemory.RAM_2G;
+		} else if (value == 3) {
+			return GameMemory.RAM_3G;
+		} else if (value == 4) {
+			return GameMemory.RAM_4G;
+		} else if (value == 5) {
+			return GameMemory.RAM_5G;
+		} else if (value == 6) {
+			return GameMemory.RAM_6G;
+		} else if (value == 7) {
+			return GameMemory.RAM_7G;
+		} else if (value == 8) {
+			return GameMemory.RAM_8G;
+		} else if (value == 9) {
+			return GameMemory.RAM_9G;
+		} else if (value == 10) {
+			return GameMemory.RAM_10G;
+		}
+		return GameMemory.DEFAULT;
+	}
+
 }

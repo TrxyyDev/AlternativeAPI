@@ -15,12 +15,12 @@ public class LauncherButton extends Button {
 	 * @param root The Pane to add the button
 	 */
 	public LauncherButton(Pane root) {
-		setUnHover(new EventHandler<MouseEvent>() {
+		this.setUnHover(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				setOpacity(1.0);
 			}
 		});
-		setHover(new EventHandler<MouseEvent>() {
+		this.setHover(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				setOpacity(0.80);
 			}
@@ -34,14 +34,14 @@ public class LauncherButton extends Button {
 	 * @param height_ The height
 	 */
 	public void setSize(int width_, int height_) {
-		setPrefSize(width_, height_);
+		this.setPrefSize(width_, height_);
 	}
 
 	/**
 	 * Set the button invisible
 	 */
 	public void setInvisible() {
-		setBackground(null);
+		this.setBackground(null);
 	}
 
 	/**
@@ -50,8 +50,8 @@ public class LauncherButton extends Button {
 	 * @param posY The position Y
 	 */
 	public void setPosition(int posX, int posY) {
-		setLayoutX(posX);
-		setLayoutY(posY);
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class LauncherButton extends Button {
 	 * @param value The value
 	 */
 	public void setAction(EventHandler<? super MouseEvent> value) {
-		onMouseClickedProperty().set(value);
+		this.onMouseClickedProperty().set(value);
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class LauncherButton extends Button {
 	 * @param value The value
 	 */
     public final void setHover(EventHandler<? super MouseEvent> value) {
-        onMouseEnteredProperty().set(value);
+    	this.onMouseEnteredProperty().set(value);
     }
     
 	/**
@@ -75,6 +75,6 @@ public class LauncherButton extends Button {
 	 * @param value The value
 	 */
     public final void setUnHover(EventHandler<? super MouseEvent> value) {
-        onMouseExitedProperty().set(value);
+    	this.onMouseExitedProperty().set(value);
     }
 }

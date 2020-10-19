@@ -18,10 +18,10 @@ public class LauncherRectangle extends Rectangle {
 	 * @param sY The size Y
 	 */
 	public LauncherRectangle(Pane root, int x, int y, int sX, int sY) {
-		setX(x);
-		setY(y);
-		setWidth(sX);
-		setHeight(sY);
+		this.setX(x);
+		this.setY(y);
+		this.setWidth(sX);
+		this.setHeight(sY);
 		root.getChildren().add(this);
 	}
 
@@ -31,8 +31,8 @@ public class LauncherRectangle extends Rectangle {
 	 * @param height The height
 	 */
 	public LauncherRectangle(int width, int height) {
-		setWidth(width);
-		setHeight(height);
+		this.setWidth(width);
+		this.setHeight(height);
 	}
 
 	/**
@@ -40,6 +40,6 @@ public class LauncherRectangle extends Rectangle {
 	 * @param color The color
 	 */
 	public void setColor(Color color) {
-		setStroke(color);
+		this.setStroke(color);
 	}
 }

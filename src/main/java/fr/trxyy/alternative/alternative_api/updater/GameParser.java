@@ -32,7 +32,6 @@ public class GameParser {
 	 * @param engine The GameEngine instance
 	 */
 	public static void getFilesToDownload(GameEngine engine) {
-		Logger.log("Preparation de la mise a jour.");
 		downloadXMLFile(engine);
 		try {
 			final URL resourceUrl = new URL(engine.getGameLinks().getCustomFilesUrl());
@@ -89,10 +88,10 @@ public class GameParser {
 			}
 			final long end = System.nanoTime();
 			final long delta = end - start;
-			Logger.log("Temps (delta) pour comparer les ressources: " + delta / 1000000L + " ms");
-			Logger.log("Depuis: " + resourceUrl);
+			Logger.log("Time (delta) to compare resources: " + delta / 1000000L + " ms");
+			Logger.log("From: " + resourceUrl);
 		} catch (final Exception ex) {
-			Logger.log("Impossible de telecharger les ressources (" + ex + ")");
+			Logger.log("Unable to download custom resources. (" + ex + ")");
 			ex.printStackTrace();
 		}
 	}
@@ -102,7 +101,6 @@ public class GameParser {
 	 * @param engine The GameEngine instance
 	 */
 	public static void getFilesToDownloadOffline(GameEngine engine) {
-		Logger.log("Preparation de la mise a jour.");
 		try {
 			File f = new File(engine.getGameFolder().getCacheDir(), "downloads.xml");
 			final URL resourceUrl = new URL(f.toURL().toString());
@@ -159,10 +157,10 @@ public class GameParser {
 			}
 			final long end = System.nanoTime();
 			final long delta = end - start;
-			Logger.log("Temps (delta) pour comparer les ressources: " + delta / 1000000L + " ms");
-			Logger.log("Depuis: " + resourceUrl);
+			Logger.log("Time (delta) to compare resources: " + delta / 1000000L + " ms");
+			Logger.log("From: " + resourceUrl);
 		} catch (final Exception ex) {
-			Logger.log("Impossible de telecharger les ressources (" + ex + ")");
+			Logger.log("Unable to download custom resources. (" + ex + ")");
 			ex.printStackTrace();
 		}
 	}

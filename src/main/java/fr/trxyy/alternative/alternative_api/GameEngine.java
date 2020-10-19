@@ -1,6 +1,7 @@
 package fr.trxyy.alternative.alternative_api;
 
 import fr.trxyy.alternative.alternative_api.maintenance.GameMaintenance;
+import fr.trxyy.alternative.alternative_api.maintenance.Maintenance;
 import fr.trxyy.alternative.alternative_api.minecraft.json.MinecraftVersion;
 import fr.trxyy.alternative.alternative_api.updater.GameUpdater;
 import javafx.stage.Stage;
@@ -18,10 +19,6 @@ public class GameEngine {
 	 * The LauncherPreferences, the name, size, ismoveable, resourceLocation
 	 */
 	private LauncherPreferences launcherSize;
-	/**
-	 * The GameVersion, version of the game
-	 */
-	private GameVersion gameVersion;
 	/**
 	 * The GameStyle, style to launcher Minecraft: vanilla, vanilla plus, optifine, forge
 	 */
@@ -79,10 +76,10 @@ public class GameEngine {
 	 * @param style The GameStyle to launch Minecraft vanilla of modded
 	 * @param size The GameSize to change the game window size to launch
 	 */
-	public GameEngine(GameFolder folder, LauncherPreferences lSize, GameVersion version, GameStyle style, GameSize size) {
+	public GameEngine(GameFolder folder, GameLinks links, LauncherPreferences lSize, GameStyle style, GameSize size) {
 		this.gameFolder = folder;
+		this.gameLinks = links;
 		this.launcherSize = lSize;
-		this.gameVersion = version;
 		this.gameStyle = style;
 		this.gameSize = size;
 	}
@@ -93,10 +90,10 @@ public class GameEngine {
 	 * @param version The Version of the game
 	 * @param style The GameStyle to launch Minecraft vanilla of modded
 	 */
-	public GameEngine(GameFolder folder, LauncherPreferences lSize, GameVersion version, GameStyle style) {
+	public GameEngine(GameFolder folder, GameLinks links, LauncherPreferences lSize, GameStyle style) {
 		this.gameFolder = folder;
+		this.gameLinks = links;
 		this.launcherSize = lSize;
-		this.gameVersion = version;
 		this.gameStyle = style;
 		this.gameSize = GameSize.DEFAULT;
 	}
@@ -257,13 +254,6 @@ public class GameEngine {
 	}
 	
 	/**
-	 * @return The version of the game
-	 */
-	public GameVersion getGameVersion() {
-		return this.gameVersion;
-	}
-	
-	/**
 	 * @return The Forge arguments
 	 */
 	public GameForge getGameForge() {
@@ -333,6 +323,9 @@ public class GameEngine {
 	 * @return The maintenance
 	 */
 	public GameMaintenance getGameMaintenance() {
+		if (this.gameMaintenance == null) {
+			return new GameMaintenance(Maintenance.DONT_USE, this);
+		}
 		return this.gameMaintenance;
 	}
 	

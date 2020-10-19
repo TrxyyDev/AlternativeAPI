@@ -25,7 +25,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import fr.trxyy.alternative.alternative_api.GameEngine;
-import fr.trxyy.alternative.alternative_api.utils.Logger;
 
 /**
  * @author Trxyy

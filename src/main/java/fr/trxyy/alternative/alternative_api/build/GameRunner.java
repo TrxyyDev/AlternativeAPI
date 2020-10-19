@@ -82,7 +82,7 @@ public class GameRunner {
 			cmds += command + " ";
 		}
 		String[] ary = cmds.split(" ");
-		Logger.log("Lancement: " + hideAccessToken(ary));
+		Logger.log("Launching: " + hideAccessToken(ary));
 		try {
 			Process process = processBuilder.start();
 			process.waitFor();
@@ -201,7 +201,7 @@ public class GameRunner {
 		}
 
 		/** ----- Tweak Class if required ----- */
-		if (engine.getGameStyle().equals(GameStyle.FORGE_1_7_10_OLD) || engine.getGameStyle().equals(GameStyle.FORGE_1_8_TO_1_12_2) || engine.getGameStyle().equals(GameStyle.OPTIFINE) || engine.getGameStyle().equals(GameStyle.ALTERNATIVE)) {
+		if (engine.getGameStyle().equals(GameStyle.FORGE_1_7_10_OLD) || engine.getGameStyle().equals(GameStyle.FORGE_1_8_TO_1_12_2) || engine.getGameStyle().equals(GameStyle.OPTIFINE)) {
 			commands.add("--tweakClass");
 			commands.add(engine.getGameStyle().getTweakArgument());
 		}
@@ -236,11 +236,11 @@ public class GameRunner {
 		map.put("auth_uuid", this.session.getUuid());
 		map.put("auth_access_token", this.session.getToken());
 		map.put("user_type", "legacy");
-		map.put("version_name", this.engine.getGameVersion().getVersion());
+		map.put("version_name", this.engine.getMinecraftVersion().getId());
 		map.put("version_type", "release");
 		map.put("game_directory", this.engine.getGameFolder().getPlayDir().getAbsolutePath());
 		map.put("assets_root", this.engine.getGameFolder().getAssetsDir().getAbsolutePath());
-		map.put("assets_index_name", this.engine.getGameVersion().getAssetIndex());
+		map.put("assets_index_name", this.engine.getMinecraftVersion().getAssets());
 		map.put("user_properties", "{}");
 
 		for (int i = 0; i < split.length; i++)
@@ -265,11 +265,11 @@ public class GameRunner {
 		map.put("auth_uuid", this.session.getUuid());
 		map.put("auth_access_token", this.session.getToken());
 		map.put("user_type", "legacy");
-		map.put("version_name", this.engine.getGameVersion().getVersion());
+		map.put("version_name", this.engine.getMinecraftVersion().getId());
 		map.put("version_type", "release");
 		map.put("game_directory", this.engine.getGameFolder().getPlayDir().getAbsolutePath());
 		map.put("assets_root", this.engine.getGameFolder().getAssetsDir().getAbsolutePath());
-		map.put("assets_index_name", this.engine.getGameVersion().getAssetIndex());
+		map.put("assets_index_name", this.engine.getMinecraftVersion().getAssets());
 		map.put("user_properties", "{}");
 
 		for (int i = 0; i < split.length; i++)
@@ -298,7 +298,7 @@ public class GameRunner {
 		try {
 			FileUtil.deleteFakeNatives(engine.getGameFolder().getNativesDir(), engine);
 		} catch (IOException e) {
-			Logger.log("Couldn't unpack natives!");
+			Logger.log("Couldn't delete natives!");
 			e.printStackTrace();
 			return;
 		}
