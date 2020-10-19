@@ -9,7 +9,7 @@
 - Web folder [HERE](https://mega.nz/file/q6h3QbKR#Alm6P2DKfPorcjIv6JfT2OcMHOs4fGnbHDIffA_YAzo)
 - Resources (for launcher) [HERE](https://mega.nz/file/ProWSSoZ#IzHCIfJsTbhty-U6GYSqlKQG7Dg3LBfbc6-FgA6Devw)
 
-## For Forge 1.13+ (deleting libraries)
+## Forge 1.13+ (deleting libraries)
 
 ```
 Go inside your libraries folder in your host.
@@ -35,13 +35,13 @@ bin/game/options.txt
 bin/game/optionsshaders.txt
 bin/game/optionsof.txt
 bin/game/usercache.json
-bin/lastlogin.cfg
-bin/user_config.cfg
+bin/launcher_config.json
 bin/game/screenshots/
 bin/game/saves/
 bin/game/resourcepacks/
 bin/game/shaderpacks/
 bin/game/config/
+bin/game/mods/
 logs/
 ```
 - delete.cfg
