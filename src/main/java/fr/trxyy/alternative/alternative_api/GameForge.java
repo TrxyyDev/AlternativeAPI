@@ -1,5 +1,7 @@
 package fr.trxyy.alternative.alternative_api;
 
+import fr.trxyy.alternative.alternative_api.utils.Forge;
+
 /**
  * @author Trxyy
  */
@@ -34,11 +36,11 @@ public class GameForge {
 	 * @param forgeGroup2 The forge group
 	 * @param mcpVersion2 The mcp version
 	 */
-	public GameForge(String launchTarget2, String forgeVersion2, String mcVersion2, String forgeGroup2, String mcpVersion2) {
-		launchTarget = launchTarget2;
+	public GameForge(Forge forgeDefault, String mcVersion2, String forgeVersion2, String mcpVersion2) {
+		launchTarget = forgeDefault.getTarget();
 		forgeversion = forgeVersion2;
 		mcVersion = mcVersion2;
-		forgeGroup = forgeGroup2;
+		forgeGroup = forgeDefault.getGroup();
 		mcpVersion = mcpVersion2;
 	}
 

@@ -1,5 +1,7 @@
 package fr.trxyy.alternative.alternative_api;
 
+import fr.trxyy.alternative.alternative_api.utils.Mover;
+
 /**
  * @author Trxyy
  */
@@ -20,7 +22,7 @@ public class LauncherPreferences {
 	/**
 	 * If the window is moveable or not
 	 */
-	public boolean moveable;
+	public Mover moveable;
 	/**
 	 * The resource location in package
 	 */
@@ -33,7 +35,7 @@ public class LauncherPreferences {
 	 * @param h The launcher size height
 	 * @param m If the window is moveable or not
 	 */
-	public LauncherPreferences(String n, int w, int h, boolean m) {
+	public LauncherPreferences(String n, int w, int h, Mover m) {
 		this.name = n;
 		this.width = w;
 		this.height = h;
@@ -72,7 +74,7 @@ public class LauncherPreferences {
 	/**
 	 * @return If the launcher window is moveable by a click or not
 	 */
-	public boolean isMoveable() {
+	public Mover isMoveable() {
 		return this.moveable;
 	}
 

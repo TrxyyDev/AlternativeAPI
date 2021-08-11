@@ -26,25 +26,27 @@ public class LauncherImage extends ImageView {
 		super(image);
 		root.getChildren().add(this);
 	}
-
+	
 	/**
-	 * Set the size of the image
-	 * @param width_ The width
-	 * @param height_ The height
+	 * Set the size
+	 * @param x The position X
+	 * @param y The position Y
 	 */
-	public void setSize(int width_, int height_) {
-		this.setFitWidth(width_);
-		this.setFitHeight(height_);
+	public void setSize(int w, int h) {
+		this.setFitWidth(w);
+		this.setFitHeight(h);
 	}
 
 	/**
-	 * Set the position
-	 * @param posX The position X
-	 * @param posY The position Y
+	 * Set the bounds
+	 * @param x The position X
+	 * @param y The position Y
 	 */
-	public void setPosition(int posX, int posY) {
-		this.setLayoutX(posX);
-		this.setLayoutY(posY);
+	public void setBounds(int x, int y, int w, int h) {
+		this.setLayoutX(x);
+		this.setLayoutY(y);
+		this.setFitWidth(w);
+		this.setFitHeight(h);
 	}
 
 }

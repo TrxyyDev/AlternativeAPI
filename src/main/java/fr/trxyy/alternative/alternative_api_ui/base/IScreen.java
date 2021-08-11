@@ -13,14 +13,20 @@ import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.utils.Logger;
 import fr.trxyy.alternative.alternative_api.utils.Mover;
 import fr.trxyy.alternative.alternative_api.utils.ResourceLocation;
+import fr.trxyy.alternative.alternative_api_ui.components.LauncherRectangle;
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 /**
  * @author Trxyy
@@ -54,7 +60,7 @@ public class IScreen {
 	 * @param root The Pane to add
 	 * @param animate The enum for animate logo or not
 	 */
-	public void drawLogo(GameEngine engine, Image img, int posX_, int posY_, int sizeX, int sizeY, Pane root, Mover animate) {
+	public void drawImage(GameEngine engine, Image img, int posX_, int posY_, int sizeX, int sizeY, Pane root, Mover animate) {
 		this.logoImage = new ImageView();
 		this.logoImage.setImage(img);
 		this.logoImage.setFitWidth(sizeX);
@@ -135,6 +141,20 @@ public class IScreen {
 		Image fxImage = SwingFXUtils.toFXImage(bufferedImage, null);
 		return fxImage;
 	}
+	
+	/**
+	 * @param engine The GameEngine instance
+	 * @param image The image as a string
+	 * @return The Image from the string
+	 */
+	public Image loadImage(GameEngine engine, String image) {
+		BufferedImage bufferedImage = null;
+		try {
+			bufferedImage = ImageIO.read(ResourceLocation.class.getResource(String.valueOf(engine.getLauncherPreferences().getResourceLocation()) + image));
+		} catch (IOException iOException) {
+		}
+		return SwingFXUtils.toFXImage(bufferedImage, null);
+	}
 
 	/**
 	 * Open a link
@@ -163,12 +183,39 @@ public class IScreen {
 		final MediaPlayer mediaPlayer = new MediaPlayer(theMedia);
 		mediaPlayer.play();
 	}
+	
+	public Rectangle drawRect(Pane root, int x, int y, int w, int h, Color r) {
+		Rectangle rect = new Rectangle();
+		rect.setX(x);
+		rect.setY(y);
+		rect.setWidth(w);
+		rect.setHeight(h);
+		rect.setFill(r);
+		root.getChildren().add(rect);
+		return rect;
+	}
 
 	/**
 	 * @return The resource location
 	 */
 	public ResourceLocation getResourceLocation() {
 		return RESOURCE_LOCATION;
+	}
+	
+	public FadeTransition fadeOut(Node object, int time) {
+		FadeTransition ft = new FadeTransition(Duration.millis(time), object);
+		ft.setFromValue(1.0);
+		ft.setToValue(0.0);
+		ft.play();
+		return ft;
+	}
+	
+	public FadeTransition fadeIn(Node object, int time) {
+		FadeTransition ft = new FadeTransition(Duration.millis(time), object);
+		ft.setFromValue(0.0);
+		ft.setToValue(1.0);
+		ft.play();
+		return ft;
 	}
 
 }

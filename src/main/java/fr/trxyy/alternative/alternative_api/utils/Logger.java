@@ -19,8 +19,8 @@ public class Logger {
 	 * @param s The text to log
 	 */
 	public static void log(String s) {
-		System.out.println(getTime() + s);
-		logLines.add(getTime() + s);
+		System.out.println(getName() + s);
+		logLines.add(getTime() + getName() + s);
 	}
 
 	/**
@@ -28,8 +28,8 @@ public class Logger {
 	 * @param s The text to log
 	 */
 	public static void err(String s) {
-		System.err.println(getTime() + s);
-		logLines.add(getTime() + "[ERROR]" + s);
+		System.err.println(getName() + s);
+		logLines.add(getTime() + getName() + "[ERROR]" + s);
 	}
 
 	/**
@@ -50,6 +50,10 @@ public class Logger {
 			s = s + "\n" + logLines.get(i);
 		}
 		return s;
+	}
+	
+	private static String getName() {
+		return "[AUpdater]";
 	}
 
 }

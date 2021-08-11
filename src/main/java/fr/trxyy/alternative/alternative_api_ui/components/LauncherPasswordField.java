@@ -1,6 +1,8 @@
 package fr.trxyy.alternative.alternative_api_ui.components;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.PasswordField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 /**
@@ -15,6 +17,17 @@ public class LauncherPasswordField extends PasswordField {
 	public LauncherPasswordField(Pane root) {
 		this.setSize(100, 30);
 		this.setPosition(0, 0);
+		
+		this.setUnHover(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				setOpacity(1.0);
+			}
+		});
+		this.setHover(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				setOpacity(0.80);
+			}
+		});
 		root.getChildren().add(this);
 	}
 
@@ -29,6 +42,17 @@ public class LauncherPasswordField extends PasswordField {
 	public LauncherPasswordField(int w, int h, int pX, int pY, Pane root) {
 		this.setSize(w, h);
 		this.setPosition(pX, pY);
+		
+		this.setUnHover(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				setOpacity(1.0);
+			}
+		});
+		this.setHover(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				setOpacity(0.80);
+			}
+		});
 		root.getChildren().add(this);
 	}
 
@@ -45,6 +69,17 @@ public class LauncherPasswordField extends PasswordField {
 		this.setText(s);
 		this.setSize(w, h);
 		this.setPosition(pX, pY);
+		
+		this.setUnHover(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				setOpacity(1.0);
+			}
+		});
+		this.setHover(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent event) {
+				setOpacity(0.80);
+			}
+		});
 		root.getChildren().add(this);
 	}
 
@@ -68,11 +103,57 @@ public class LauncherPasswordField extends PasswordField {
 	}
 	
 	/**
+	 * Set the bounds of the field
+	 * @param posX The position X
+	 * @param posY The position Y
+	 * @param width_ The width
+	 * @param height_ The height
+	 */
+	public void setBounds(int posX, int posY, int width_, int height_) {
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
+		this.setPrefSize(width_, height_);
+	}
+	
+	/**
 	 * Set the text to display when field is void
 	 * @param s The text to display
 	 */
 	public void setVoidText(String s) {
 		this.setPromptText(s);
 	}
+	
+	/**
+	 * Set the Action when clicked
+	 * @param value The value
+	 */
+	public void setAction(EventHandler<? super MouseEvent> value) {
+		this.onMouseClickedProperty().set(value);
+	}
+	
+	/**
+	 * Set the Action when hover
+	 * @param value The value
+	 */
+    public final void setHover(EventHandler<? super MouseEvent> value) {
+    	this.onMouseEnteredProperty().set(value);
+    }
+    
+	/**
+	 * Set the Action when unhover
+	 * @param value The value
+	 */
+    public final void setUnHover(EventHandler<? super MouseEvent> value) {
+    	this.onMouseExitedProperty().set(value);
+    }
+    
+	/**
+	 * Set the Style
+	 * @param value The value
+	 */
+    public final void addStyle(String value) {
+    	String finalValue = this.getStyle() + value;
+        styleProperty().set(finalValue);
+    }
 
 }

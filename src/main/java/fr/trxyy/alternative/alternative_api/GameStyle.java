@@ -7,7 +7,6 @@ public enum GameStyle {
 	
 	VANILLA("net.minecraft.client.main.Main", "", ""),
 	VANILLA_PLUS("net.minecraft.client.main.Main", "", ""),
-	FORGE("Will be chosen after.", "", ""),
 	OPTIFINE("net.minecraft.launchwrapper.Launch", "optifine.OptiFineTweaker", ""),
 	FORGE_1_7_10_OLD("net.minecraft.launchwrapper.Launch", "cpw.mods.fml.common.launcher.FMLTweaker", ""),
 	FORGE_1_8_TO_1_12_2("net.minecraft.launchwrapper.Launch", "net.minecraftforge.fml.common.launcher.FMLTweaker", ""),

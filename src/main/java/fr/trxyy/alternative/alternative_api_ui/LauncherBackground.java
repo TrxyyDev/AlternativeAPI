@@ -1,7 +1,17 @@
 package fr.trxyy.alternative.alternative_api_ui;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+
 import fr.trxyy.alternative.alternative_api.GameEngine;
-import fr.trxyy.alternative.alternative_api.utils.Logger;
+import fr.trxyy.alternative.alternative_api.utils.ResourceLocation;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -35,23 +45,57 @@ public class LauncherBackground {
 	/**
 	 * The Constructor
 	 * @param engine The GameEngine instance
-	 * @param f The media
+	 * @param mediaName The media
 	 * @param root The Pane to add the background
 	 */
-	public LauncherBackground(GameEngine engine, Media f, Pane root) {
+	public LauncherBackground(GameEngine engine, String mediaName, Pane root) {
 		this.posX = 0;
 		this.posY = 0;
-		player = new MediaPlayer(f);
-		viewer = new MediaView(player);
-		viewer.setFitWidth(engine.getLauncherPreferences().getWidth());
-		viewer.setFitHeight(engine.getLauncherPreferences().getHeight());
-		player.setAutoPlay(true);
-		viewer.setPreserveRatio(false);
-		viewer.setOpacity(opacity);
-		player.setCycleCount(-1);
-		player.play();
+		if (mediaName.endsWith(".mp4") || mediaName.endsWith(".avi") || mediaName.endsWith(".mov")) {
+			player = new MediaPlayer(getMedia(engine, mediaName));
+			viewer = new MediaView(player);
+			viewer.setFitWidth(engine.getLauncherPreferences().getWidth());
+			viewer.setFitHeight(engine.getLauncherPreferences().getHeight());
+			player.setAutoPlay(true);
+			viewer.setPreserveRatio(false);
+			viewer.setOpacity(opacity);
+			player.setCycleCount(-1);
+			player.play();
+			root.getChildren().add(viewer);
+		} else {
+			ImageView backgroundImage = new ImageView();
+			backgroundImage.setImage(loadImage(engine, mediaName));
+			backgroundImage.setFitWidth(engine.getLauncherPreferences().getWidth());
+			backgroundImage.setFitHeight(engine.getLauncherPreferences().getHeight());
+			backgroundImage.setLayoutX(0);
+			backgroundImage.setLayoutY(0);
+			root.getChildren().add(backgroundImage);
+		}
+	}
 
-		root.getChildren().add(viewer);
+	/**
+	 * @param engine The GameEngine instance
+	 * @param image The image as a string
+	 * @return The Image from the string
+	 */
+	public Image loadImage(GameEngine engine, String image) {
+		BufferedImage bufferedImage = null;
+		try {
+			bufferedImage = ImageIO.read(ResourceLocation.class.getResource(String.valueOf(engine.getLauncherPreferences().getResourceLocation()) + image));
+		} catch (IOException iOException) {
+		}
+		return SwingFXUtils.toFXImage(bufferedImage, null);
+	}
+	
+	public Media getMedia(GameEngine engine, String media) {
+		Media theMedia = null;
+		URL resourceUrl = ResourceLocation.class.getResource(String.valueOf(engine.getLauncherPreferences().getResourceLocation()) + media);
+		try {
+			theMedia = new Media(resourceUrl.toURI().toString());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return theMedia;
 	}
 
 	/**

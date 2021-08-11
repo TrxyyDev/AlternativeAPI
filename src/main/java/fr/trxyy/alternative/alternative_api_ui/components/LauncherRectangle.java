@@ -42,4 +42,13 @@ public class LauncherRectangle extends Rectangle {
 	public void setColor(Color color) {
 		this.setStroke(color);
 	}
+	
+	/**
+	 * Set the Style
+	 * @param value The value
+	 */
+    public final void addStyle(String value) {
+    	String finalValue = this.getStyle() + value;
+        styleProperty().set(finalValue);
+    }
 }

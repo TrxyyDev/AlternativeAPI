@@ -99,6 +99,22 @@ public class GameEngine {
 	}
 	
 	/**
+	 * The Constructor
+	 * @param folder The GameFolder for the folder name in APPDATA
+	 * @param lSize The preferences for the Stage title, size etc..
+	 * @param version The Version of the game
+	 * @param style The GameStyle to launch Minecraft vanilla of modded
+	 */
+	public GameEngine(GameFolder folder, GameLinks links, LauncherPreferences lSize, GameStyle style, GameForge forgegame) {
+		this.gameFolder = folder;
+		this.gameLinks = links;
+		this.launcherSize = lSize;
+		this.gameStyle = style;
+		this.gameSize = GameSize.DEFAULT;
+		this.gameForge = forgegame;
+	}
+	
+	/**
 	 * Register some things...
 	 * @param links Register download links
 	 * @param forge Register the forge version/arguments

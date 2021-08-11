@@ -19,7 +19,7 @@ public class LauncherProgressBar extends ProgressBar {
 	public LauncherProgressBar() {}
 	
 	/**
-	 * The COnstructor
+	 * The Constructor
 	 * @param contentPane The Pane to add the progress bar
 	 */
 	public LauncherProgressBar(Pane contentPane) {
@@ -88,5 +88,26 @@ public class LauncherProgressBar extends ProgressBar {
 	public String getCurrentFile() {
 		return this.currentFile;
 	}
+
+	/**
+	 * Set the bounds
+	 * @param posX The position X
+	 * @param posY The position Y
+	 * @param width The size X
+	 * @param height The size Y
+	 */
+	public void setBounds(int posX, int posY, int width, int height) {
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
+		this.setPrefSize(width, height);
+	}
 	
+	/**
+	 * Set the Style
+	 * @param value The value
+	 */
+    public final void addStyle(String value) {
+    	String finalValue = this.getStyle() + value;
+        styleProperty().set(finalValue);
+    }
 }

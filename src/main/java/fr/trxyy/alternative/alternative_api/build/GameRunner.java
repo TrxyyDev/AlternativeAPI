@@ -16,7 +16,6 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameStyle;
-import fr.trxyy.alternative.alternative_api.account.Session;
 import fr.trxyy.alternative.alternative_api.minecraft.json.Argument;
 import fr.trxyy.alternative.alternative_api.minecraft.json.ArgumentType;
 import fr.trxyy.alternative.alternative_api.utils.HastebinSender;
@@ -24,6 +23,7 @@ import fr.trxyy.alternative.alternative_api.utils.Logger;
 import fr.trxyy.alternative.alternative_api.utils.OperatingSystem;
 import fr.trxyy.alternative.alternative_api.utils.file.FileUtil;
 import fr.trxyy.alternative.alternative_api.utils.file.GameUtils;
+import fr.trxyy.alternative.alternative_auth.account.Session;
 import javafx.application.Platform;
 
 /**

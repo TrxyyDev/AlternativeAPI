@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 import fr.trxyy.alternative.alternative_api.GameEngine;
 import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.GameVerifier;
-import fr.trxyy.alternative.alternative_api.account.Session;
 import fr.trxyy.alternative.alternative_api.assets.AssetIndex;
 import fr.trxyy.alternative.alternative_api.assets.AssetObject;
 import fr.trxyy.alternative.alternative_api.build.GameRunner;
@@ -36,6 +35,7 @@ import fr.trxyy.alternative.alternative_api.utils.file.FileUtil;
 import fr.trxyy.alternative.alternative_api.utils.file.GameUtils;
 import fr.trxyy.alternative.alternative_api.utils.file.JsonUtil;
 import fr.trxyy.alternative.alternative_api.utils.file.LauncherFile;
+import fr.trxyy.alternative.alternative_auth.account.Session;
 
 /**
  * @author Trxyy

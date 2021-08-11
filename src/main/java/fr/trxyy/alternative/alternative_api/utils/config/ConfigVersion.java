@@ -2,16 +2,38 @@ package fr.trxyy.alternative.alternative_api.utils.config;
 
 public class ConfigVersion {
 
+	
+	private static ConfigVersion instance;
+	
 	/**
 	 * The username
 	 */
 	public String username;
 	/**
+	 * The password
+	 */
+	public String password;
+	/**
+	 * The password
+	 */
+	public boolean rememberme;
+	/**
 	 * The RAM
 	 */
 	public String allocatedram;
 	/**
-	 * The game size
+	 * The VERSION
+	 */
+	  public String version;
+	/**
+	 * 
+	 /* Using forge ?
+	  */
+	  public boolean useforge;
+	  /*
+	   * 
+	   */
+	 /* The game size
 	 */
 	public String gamesize;
 	/**
@@ -31,12 +53,18 @@ public class ConfigVersion {
 	 * The Constructor
 	 */
 	public ConfigVersion(ConfigVersion o) {
+		instance = o;
 		this.username = o.username;
 		this.allocatedram = o.allocatedram;
+		this.version = o.version;
+		this.useforge = o.useforge;
 		this.gamesize = o.gamesize;
 		this.autologin = o.autologin;
 		this.vmarguments = o.vmarguments;
 		this.usevmarguments = o.usevmarguments;
+		this.password = o.password;
+		this.rememberme = o.rememberme;
+
 	}
 
 	/**
@@ -46,6 +74,9 @@ public class ConfigVersion {
 		return this.allocatedram;
 	}
 
+	public String getVersion() {
+		return version;
+	}
 	/**
 	 * Get the game size
 	 */
@@ -80,5 +111,18 @@ public class ConfigVersion {
 	public boolean useVMArguments() {
 		return this.usevmarguments;
 	}
+	
+	public boolean useForge() 
+	{
+		return this.useforge;
+	}
+	
+	public boolean isRememberme() {
+		return rememberme;
+	}
 
+	public static ConfigVersion getInstance() {
+		return instance;
+	}
+	
 }

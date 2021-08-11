@@ -53,6 +53,28 @@ public class LauncherLabel extends Label {
 		this.setLayoutX(posX);
 		this.setLayoutY(posY);
 	}
+	
+	/**
+	 * Set the bounds (double)
+	 * @param posX The position X (double)
+	 * @param posY The position Y (double)
+	 */
+	public void setBounds(double posX, double posY, int width_, int height_) {
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
+		this.setPrefSize(width_, height_);
+	}
+	
+	/**
+	 * Set the bounds (int)
+	 * @param posX The position X (int)
+	 * @param posY The position Y (int)
+	 */
+	public void setBounds(int posX, int posY, int width_, int height_) {
+		this.setLayoutX(posX);
+		this.setLayoutY(posY);
+		this.setPrefSize(width_, height_);
+	}
 
 	/**
 	 * Set the Action when clicked
@@ -76,5 +98,14 @@ public class LauncherLabel extends Label {
 	 */
     public final void setUnHover(EventHandler<? super MouseEvent> value) {
     	this.onMouseExitedProperty().set(value);
+    }
+    
+	/**
+	 * Set the Style
+	 * @param value The value
+	 */
+    public final void addStyle(String value) {
+    	String finalValue = this.getStyle() + value;
+        styleProperty().set(finalValue);
     }
 }
