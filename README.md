@@ -1,6 +1,7 @@
 ![Logo](https://nsa40.casimages.com/img/2020/05/07/200507103021373167.png)
 
 <h4 align="center">A JavaFX Library for Minecraft Launchers. Works with Forge 1.13+!</h4>
+<h4 align="center">Works 100% on Windows, other OS need a Fix.</h4>
 
 ## Downloads
 
@@ -48,6 +49,15 @@ logs/
 ```
 libraries/com/google/guava/guava/15.0/guava-15.0.jar
 ```
+
+## How to Use
+```
+	private GameFolder gameFolder = new GameFolder("customlauncher");
+	private LauncherPreferences launcherPreferences = new LauncherPreferences("Launcher Template AlternativeAPI", 950, 600, true);
+	private GameLinks gameLinks = new GameLinks("http://127.0.0.1/alternative/1_16_3/", "1.16.3.json");
+	private GameEngine gameEngine = new GameEngine(this.gameFolder, this.gameLinks, this.launcherPreferences, GameStyle.FORGE_1_13_HIGHER);
+	private GameForge newForge = new GameForge("fmlclient", "34.1.0", "1.16.3", "net.minecraftforge", "20200911.084530");
+  ```
 
 
 
