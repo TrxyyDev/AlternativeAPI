@@ -70,6 +70,9 @@ public class Downloader extends Thread {
 		if (this.file.getAbsolutePath().contains("assets")) {
 			engine.getGameUpdater().setCurrentInfoText("Telechargement d'une ressource.");
 		}
+		else if (this.file.getAbsolutePath().contains("jre-legacy") || this.file.getAbsolutePath().contains("java-runtime-alpha")) {
+			engine.getGameUpdater().setCurrentInfoText("Telechargement de java.");
+		}
 		else {
 			engine.getGameUpdater().setCurrentInfoText("Telechargement d'une librairie.");
 		}

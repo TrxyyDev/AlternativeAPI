@@ -49,6 +49,10 @@ public class MinecraftVersion {
 	 * The minecraft arguments (new)
 	 */
 	public Map<ArgumentType, List<Argument>> arguments;
+	/**
+	 * The minecraft java version to use
+	 */
+	public JavaVersion javaVersion;
 
 	/**
 	 * The Constructor
@@ -99,6 +103,13 @@ public class MinecraftVersion {
 	 */
 	public MinecraftClient getDownloads() {
 		return downloads;
+	}
+	
+	/**
+	 * @return The Minecraft required java version
+	 */
+	public JavaVersion getJavaVersion() {
+		return javaVersion;
 	}
 
 	/**

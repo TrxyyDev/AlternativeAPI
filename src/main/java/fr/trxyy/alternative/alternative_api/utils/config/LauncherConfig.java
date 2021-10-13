@@ -40,12 +40,12 @@ public class LauncherConfig {
 			 * Config details
 			 */
 			JSONObject configDetails = new JSONObject();
-			configDetails.put("username", "Player");
-			configDetails.put("allocatedram", 1.0);
-			configDetails.put("gamesize", "0");
-			configDetails.put("autologin", false);
-			configDetails.put("vmarguments", "-XX:+CMSIncrementalMode");
-			configDetails.put("usevmarguments", false);
+			configDetails.put(EnumConfig.USERNAME.getOption(), EnumConfig.USERNAME.getDefault());
+			configDetails.put(EnumConfig.RAM.getOption(), EnumConfig.RAM.getDefault());
+			configDetails.put(EnumConfig.GAME_SIZE.getOption(), EnumConfig.GAME_SIZE.getDefault());
+			configDetails.put(EnumConfig.AUTOLOGIN.getOption(), false);
+			configDetails.put(EnumConfig.VM_ARGUMENTS.getOption(), EnumConfig.VM_ARGUMENTS.getDefault());
+			configDetails.put(EnumConfig.USE_VM_ARGUMENTS.getOption(), false);
 
 			try {
 				FileWriter fw = new FileWriter(this.launcherConfig);
@@ -97,10 +97,10 @@ public class LauncherConfig {
 	/**
 	 * Get a specified value
 	 */
-	public Object getValue(String toGet) {
+	public Object getValue(EnumConfig option) {
 		String configJson = JsonUtil.getGson().toJson(this.configVersion);
 		JSONObject jsonObject = (JSONObject) JSONValue.parse(configJson);
-		return jsonObject.get(toGet);
+		return jsonObject.get(option.getOption());
 	}
 
 	/**

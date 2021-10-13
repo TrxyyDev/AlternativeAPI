@@ -72,9 +72,9 @@ public class LauncherPreferences {
 	}
 
 	/**
-	 * @return If the launcher window is moveable by a click or not
+	 * @return If the launcher window is movable by a click or not
 	 */
-	public Mover isMoveable() {
+	public Mover isMovable() {
 		return this.moveable;
 	}
 

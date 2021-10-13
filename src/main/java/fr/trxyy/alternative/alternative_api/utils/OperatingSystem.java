@@ -6,13 +6,19 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
+import fr.trxyy.alternative.alternative_api.GameEngine;
+import fr.trxyy.alternative.alternative_api.minecraft.utils.Arch;
+
 /**
  * @author Trxyy
  */
 public enum OperatingSystem {
 
-	LINUX(new String[] { "linux", "unix" }), WINDOWS(new String[] { "win" }), OSX(new String[] { "mac" }),
-	SOLARIS(new String[] { "solaris", "sunos" }), UNKNOWN(new String[] { "unknown" });
+	LINUX(new String[] { "linux", "unix" }),
+	WINDOWS(new String[] { "win" }), 
+	OSX(new String[] { "mac" }),
+	SOLARIS(new String[] { "solaris", "sunos" }),
+	UNKNOWN(new String[] { "unknown" });
 
 	/**
 	 * The OS Name in System Properties
@@ -75,6 +81,15 @@ public enum OperatingSystem {
 			return "\"" + System.getProperty("java.home") + "\\bin\\java" + "\"";
 
 		return System.getProperty("java.home") + "/bin/java";
+	}
+	
+	/**
+	 * @return The Java Path Installed
+	 */
+	public static String getJavaPath(GameEngine engine) {
+		String component = engine.getMinecraftVersion().getJavaVersion().getComponent();
+		File javaPath = new File(engine.getGameFolder().getBinDir(), component);
+		return javaPath + "/bin/java";
 	}
 
 	/**
@@ -163,6 +178,16 @@ public enum OperatingSystem {
 				Logger.log("Failed to open link " + link.toString());
 			}
 		}
+	}
+	
+	/**
+	 * Get the Java Bit
+	 */
+	public static Arch getJavaBit() {
+		String res = System.getProperty("sun.arch.data.model");
+		if (res != null && res.equalsIgnoreCase("64"))
+			return Arch.x64;
+		return Arch.x86;
 	}
 
 	/**

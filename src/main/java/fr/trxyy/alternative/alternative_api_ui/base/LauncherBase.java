@@ -73,7 +73,7 @@ public class LauncherBase {
 				System.exit(0);
 			}
 		});
-		if (engine.getLauncherPreferences().isMoveable().equals(Mover.MOVE)) {
+		if (engine.getLauncherPreferences().isMovable().equals(Mover.MOVE)) {
 			scene.setOnMousePressed(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent mouseEvent) {
 					dragDelta.x = (int) (stage.getX() - mouseEvent.getScreenX());
