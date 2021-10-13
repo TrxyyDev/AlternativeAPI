@@ -67,6 +67,10 @@ public class GameEngine {
 	 * MinecraftVersion, the Minecraft version from the json
 	 */
 	private MinecraftVersion minecraftVersion;
+	/**
+	 * is running Online mode (connected to internet)
+	 */
+	private boolean isOnline = true;
 	
 	/**
 	 * The Constructor
@@ -357,5 +361,19 @@ public class GameEngine {
 	 */
 	public JVMArguments getJVMArguments() {
 		return jvmArgs;
+	}
+
+	/**
+	 * @param The launcher is connected to internet or not.
+	 */
+	public void setOnline(boolean bool) {
+		this.isOnline  = bool;
+	}
+	
+	/**
+	 * @return If the launcher is connected to internet
+	 */
+	public boolean isOnline() {
+		return this.isOnline;
 	}
 }

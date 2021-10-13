@@ -76,7 +76,7 @@ public class GameUpdater extends Thread {
 	/**
 	 * The Minecraft Local Version from Json
 	 */
-	public static MinecraftVersion minecraftLocalVersion;
+	public MinecraftVersion minecraftLocalVersion;
 	/**
 	 * Custom files has a custom jar ?
 	 */
@@ -129,6 +129,7 @@ public class GameUpdater extends Thread {
 	 * The custom files to download
 	 */
 	public int filesToDownload = 0;
+	private boolean isOnline = true;
 
 	/**
 	 * Register some things...
@@ -152,8 +153,10 @@ public class GameUpdater extends Thread {
 	@Override
 	public void run() {
 		/** -------------------------------------- */
-		HOST = engine.getGameLinks().getBaseUrl();
-		if (this.isOnline()) {
+		this.HOST = engine.getGameLinks().getBaseUrl();
+		this.isOnline = this.isOnline();
+		this.engine.setOnline(this.isOnline);
+		if (this.isOnline) {
 			Logger.log("=============UPDATING GAME==============");
 
 			this.setCurrentInfoText("Preparation de la mise a jour.");
@@ -260,7 +263,7 @@ public class GameUpdater extends Thread {
 			}
 			
 			Logger.log("========================================");
-			Logger.log("|      Update Finished. Launching.     |");
+			Logger.log("|       Can't Update. Launching.       |");
 			Logger.log("|            Version " + minecraftLocalVersion.getId() + "            |");
 			Logger.log("|          Runtime: " + System.getProperty("java.version") + "          |");
 			Logger.log("========================================");
@@ -277,7 +280,7 @@ public class GameUpdater extends Thread {
 			}
 		}
 	}
-
+	
 	private void downloadJavaVersion(Arch currentArch, OperatingSystem currentOs) {
 		if (this.engine.getMinecraftVersion().getJavaVersion() != null) {
 			String code = this.engine.getMinecraftVersion().getJavaVersion().getComponent();
@@ -744,6 +747,14 @@ public class GameUpdater extends Thread {
 	 */
 	public void setCurrentFile(String name) {
 		this.currentFile = name;
+	}
+	
+	public boolean isRunningOnline() {
+		return this.isOnline;
+	}
+	
+	public MinecraftVersion getLocalVersion() {
+		return this.minecraftLocalVersion;
 	}
 
 	/**

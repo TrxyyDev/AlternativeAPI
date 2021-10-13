@@ -2,7 +2,7 @@ package fr.trxyy.alternative.alternative_api;
 
 public class ApiConstants {
 	
-	public static String API_VERSION = "1.4.0";
+	public static String API_VERSION = "1.4.1";
 	public static String AUTHOR = "Trxyy";
 	
 	public static String getVersion() {
