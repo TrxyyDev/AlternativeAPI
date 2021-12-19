@@ -11,11 +11,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,15 +30,14 @@ import fr.trxyy.alternative.alternative_api.assets.AssetObject;
 import fr.trxyy.alternative.alternative_api.build.GameRunner;
 import fr.trxyy.alternative.alternative_api.minecraft.java.JVMFile;
 import fr.trxyy.alternative.alternative_api.minecraft.java.JVMManifest;
+import fr.trxyy.alternative.alternative_api.minecraft.java.JavaManifest;
+import fr.trxyy.alternative.alternative_api.minecraft.java.JavaRuntime;
 import fr.trxyy.alternative.alternative_api.minecraft.json.MinecraftLibrary;
 import fr.trxyy.alternative.alternative_api.minecraft.json.MinecraftVersion;
 import fr.trxyy.alternative.alternative_api.minecraft.utils.Arch;
 import fr.trxyy.alternative.alternative_api.minecraft.utils.CompatibilityRule;
-import fr.trxyy.alternative.alternative_api.minecraft.utils.EnumJavaOS;
-import fr.trxyy.alternative.alternative_api.minecraft.utils.EnumJavaVersion;
 import fr.trxyy.alternative.alternative_api.minecraft.utils.EnumJavaFileType;
 import fr.trxyy.alternative.alternative_api.utils.Logger;
-import fr.trxyy.alternative.alternative_api.utils.OperatingSystem;
 import fr.trxyy.alternative.alternative_api.utils.file.FileUtil;
 import fr.trxyy.alternative.alternative_api.utils.file.GameUtils;
 import fr.trxyy.alternative.alternative_api.utils.file.JsonUtil;
@@ -66,9 +66,13 @@ public class GameUpdater extends Thread {
 	 */
 	public static MinecraftVersion minecraftVersion;
 	/**
-	 * The Minecraft Java manifest
+	 * The Minecraft JVM manifest
 	 */
-	public JVMManifest javaManifest;
+	public JVMManifest jvmManifest;
+	/**
+	 * The Minecraft Java Manifest
+	 */
+	public JavaManifest javaManifest;
 	/**
 	 * The Java style
 	 */
@@ -113,6 +117,10 @@ public class GameUpdater extends Thread {
 	 * The java Executor
 	 */
 	private ExecutorService javaExecutor = Executors.newFixedThreadPool(5);
+	/**
+	 * The log4j Executor
+	 */
+	private ExecutorService log4jExecutor = Executors.newFixedThreadPool(5);
 	/**
 	 * The current Info text of the progressbar
 	 */
@@ -219,8 +227,12 @@ public class GameUpdater extends Thread {
 			}
 			
 			Logger.log("Downloading required java version");
-			this.downloadJavaVersion(OperatingSystem.getJavaBit(), OperatingSystem.getCurrentPlatform());
+//			this.downloadJavaVersion(OperatingSystem.getJavaBit(), OperatingSystem.getCurrentPlatform());
+			this.downloadJavaManifest();
 			this.updateJava();
+			
+			Logger.log("Downloading log4j configuration file");
+			this.updateLog4j();
 			
 			Logger.log("Cleaning installation         [Step 6/6]");
 			Logger.log("========================================");
@@ -281,66 +293,53 @@ public class GameUpdater extends Thread {
 		}
 	}
 	
-	private void downloadJavaVersion(Arch currentArch, OperatingSystem currentOs) {
-		if (this.engine.getMinecraftVersion().getJavaVersion() != null) {
-			String code = this.engine.getMinecraftVersion().getJavaVersion().getComponent();
-			if (code.equals(EnumJavaVersion.JAVA_RUNTIME_ALPHA.getCode())) {
-				this.javaStyle = EnumJavaVersion.JAVA_RUNTIME_ALPHA.getCode();
-				if (currentOs.equals(OperatingSystem.WINDOWS)) {
-					if (currentArch.equals(Arch.x64)) {
-						this.indexJava(EnumJavaOS.WIN_64_ALPHA);
-					}
-					else {
-						this.indexJava(EnumJavaOS.WIN_32_ALPHA);
-					}
-				}
-				if (currentOs.equals(OperatingSystem.LINUX)) {
-					this.indexJava(EnumJavaOS.LINUX_ALPHA);
-				}
-				if (currentOs.equals(OperatingSystem.OSX) || currentOs.equals(OperatingSystem.SOLARIS)) {
-					this.indexJava(EnumJavaOS.MACOS_ALPHA);
-				}
-			} else if (code.equals(EnumJavaVersion.JRE_LEGACY.getCode())) {
-				this.javaStyle = EnumJavaVersion.JRE_LEGACY.getCode();
-				if (currentOs.equals(OperatingSystem.WINDOWS)) {
-					if (currentArch.equals(Arch.x64)) {
-						this.indexJava(EnumJavaOS.WIN_64_LEGACY);
-					}
-					else {
-						this.indexJava(EnumJavaOS.WIN_32_LEGACY);
+	private void downloadJavaManifest() {
+		if (this.getEngine().getMinecraftVersion().getJavaVersion() != null) {
+			String json = null;
+			String manifestUrl = "https://launchermeta.mojang.com/v1/products/java-runtime/2ec0cc96c44e5a76b9c8b7c39df7210883d12871/all.json";
+			try {
+				json = JsonUtil.loadJSON(manifestUrl);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				this.javaManifest = (JavaManifest) JsonUtil.getGson().fromJson(json, JavaManifest.class);
+				Logger.log("CurrentRuntime: " + this.javaManifest.getCurrentOS()); // windows-x64
+				Map<String, List<JavaRuntime>> r = this.javaManifest.getCurrentJava();
+				for (String run : r.keySet()) {
+					if (run.equals(this.getEngine().getMinecraftVersion().getJavaVersion().getComponent())) {
+						Logger.log("Choosen: " + run);
+						ArrayList<JavaRuntime> s = (ArrayList<JavaRuntime>) r.get(run);
+						Logger.log("test: " + s.get(0).getManifest().getUrl());
+						this.indexJava(s.get(0).getManifest().getUrl().toString());
+						break;
 					}
 				}
-				if (currentOs.equals(OperatingSystem.LINUX)) {
-					this.indexJava(EnumJavaOS.LINUX_LEGACY);
-				}
-				if (currentOs.equals(OperatingSystem.OSX) || currentOs.equals(OperatingSystem.SOLARIS)) {
-					this.indexJava(EnumJavaOS.MACOS_LEGACY);
-				}
-			}
-		}
-		else {
-			this.javaStyle = EnumJavaVersion.JRE_LEGACY.getCode();
-			if (currentOs.equals(OperatingSystem.WINDOWS)) {
-				if (currentArch.equals(Arch.x64)) {
-					Logger.log("Base Legacy Using Windows " + currentArch.getBit());
-					this.indexJava(EnumJavaOS.WIN_64_LEGACY);
-				}
-				else {
-					Logger.log("Base Legacy Using Windows " + currentArch.getBit());
-					this.indexJava(EnumJavaOS.WIN_32_LEGACY);
-				}
-			}
-			if (currentOs.equals(OperatingSystem.LINUX)) {
-				Logger.log("Base Legacy Using Linux " + currentArch.getBit());
-				this.indexJava(EnumJavaOS.LINUX_LEGACY);
-			}
-			if (currentOs.equals(OperatingSystem.OSX) || currentOs.equals(OperatingSystem.SOLARIS)) {
-				Logger.log("Base Legacy Using MacOS " + currentArch.getBit());
-				this.indexJava(EnumJavaOS.MACOS_LEGACY);
 			}
 		}
 	}
 
+	private void updateLog4j() {
+		if (this.getEngine().getMinecraftVersion().getLogging() != null) {
+			File log4jfolder = this.getEngine().getGameFolder().getLogConfigsDir();
+			log4jfolder.mkdirs();
+			File log4jfile = new File(log4jfolder, this.getEngine().getMinecraftVersion().getLogging().getClient().getFile().getId());
+			
+				Downloader downloadTask = new Downloader(log4jfile, this.getEngine().getMinecraftVersion().getLogging().getClient().getFile().getUrl().toString(), this.getEngine().getMinecraftVersion().getLogging().getClient().getFile().getSha1(), engine);
+				GameVerifier.addToFileList(log4jfile.getAbsolutePath().replace(this.getEngine().getGameFolder().getLogConfigsDir().getAbsolutePath(), "").replace('/', File.separatorChar));
+				if (downloadTask.requireUpdate()) {
+					this.log4jExecutor.submit(downloadTask);
+					this.filesToDownload++;
+				}
+			}
+			
+			this.log4jExecutor.shutdown();
+			try {
+				this.log4jExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			Logger.log("Log4j Update finished.");
+	}
 	/**
 	 * Download Minecraft Json version at Every Launch to be up to date.
 	 */
@@ -497,11 +496,12 @@ public class GameUpdater extends Thread {
 	}
 	
 	public void updateJava() {
-		Map<String, JVMFile> objects = this.javaManifest.getFiles();
+		if (this.getEngine().getMinecraftVersion().getJavaVersion() != null) {
+		Map<String, JVMFile> objects = this.jvmManifest.getFiles();
 
 		for (String javaFile : objects.keySet()) {
 			JVMFile jvmFile = (JVMFile) objects.get(javaFile);
-			File localFolder = new File(engine.getGameFolder().getBinDir(), this.javaStyle);
+			File localFolder = new File(engine.getGameFolder().getBinDir(), this.getEngine().getMinecraftVersion().getJavaVersion().getComponent());
 			localFolder.mkdirs();
 			File local = new File(localFolder, javaFile);
 			
@@ -525,6 +525,7 @@ public class GameUpdater extends Thread {
 			e.printStackTrace();
 		}
 		Logger.log("Jre Update finished.");
+		}
 	}
 
 	/**
@@ -627,14 +628,27 @@ public class GameUpdater extends Thread {
 	/**
 	 * Index Minecraft java version
 	 */
-	public void indexJava(EnumJavaOS java) {
+//	public void indexJava(EnumJavaOS java) {
+//		String javaManifestJson = null;
+//		try {
+//			javaManifestJson = JsonUtil.loadJSON(java.getUrl());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			Logger.log("jsonM: " + javaManifestJson);
+//			jvmManifest = (JVMManifest) JsonUtil.getGson().fromJson(javaManifestJson, JVMManifest.class);
+//		}
+//	}
+	
+	public void indexJava(String url) {
 		String javaManifestJson = null;
 		try {
-			javaManifestJson = JsonUtil.loadJSON(java.getUrl());
+			javaManifestJson = JsonUtil.loadJSON(url);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			javaManifest = (JVMManifest) JsonUtil.getGson().fromJson(javaManifestJson, JVMManifest.class);
+			Logger.log("jsonM: " + javaManifestJson);
+			jvmManifest = (JVMManifest) JsonUtil.getGson().fromJson(javaManifestJson, JVMManifest.class);
 		}
 	}
 

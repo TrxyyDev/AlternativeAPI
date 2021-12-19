@@ -1,6 +1,6 @@
 ![Logo](https://nsa40.casimages.com/img/2020/05/07/200507103021373167.png)
 
-<h4 align="center">A JavaFX Library for Minecraft Launchers. Works with Forge 1.13+!</h4>
+<h4 align="center">A JavaFX Library for Minecraft Launchers!</h4>
 <h4 align="center">Works 100% on Windows, other OS need a Fix.</h4>
 
 ## Downloads

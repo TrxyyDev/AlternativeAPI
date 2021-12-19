@@ -12,7 +12,8 @@ public enum GameStyle {
 	OPTIFINE("net.minecraft.launchwrapper.Launch", "optifine.OptiFineTweaker", ""),
 	FORGE_1_7_10_OLD("net.minecraft.launchwrapper.Launch", "cpw.mods.fml.common.launcher.FMLTweaker", ""),
 	FORGE_1_8_TO_1_12_2("net.minecraft.launchwrapper.Launch", "net.minecraftforge.fml.common.launcher.FMLTweaker", ""),
-	FORGE_1_13_HIGHER("cpw.mods.modlauncher.Launcher", "", "--launchTarget ${launch_target_fml} --fml.forgeVersion ${forge_version_fml} --fml.mcVersion ${mc_version_fml} --fml.forgeGroup ${forge_group_fml} --fml.mcpVersion ${mcp_version_fml}");
+	FORGE_1_13_HIGHER("cpw.mods.modlauncher.Launcher", "", "--launchTarget ${launch_target_fml} --fml.forgeVersion ${forge_version_fml} --fml.mcVersion ${mc_version_fml} --fml.forgeGroup ${forge_group_fml} --fml.mcpVersion ${mcp_version_fml}"),
+	FORGE_1_17_HIGHER("cpw.mods.bootstraplauncher.BootstrapLauncher", "", "--launchTarget ${launch_target_fml} --fml.forgeVersion ${forge_version_fml} --fml.mcVersion ${mc_version_fml} --fml.forgeGroup ${forge_group_fml} --fml.mcpVersion ${mcp_version_fml}");
 	/**
 	 * The main class
 	 */

@@ -38,6 +38,10 @@ public class GameFolder {
 	 */
 	public File assetsDir;
 	/**
+	 * The logging configuration directory, where the log4j configuration files are placed
+	 */
+	public File log_configsDir;
+	/**
 	 * The natives directory, where the natives are placed
 	 */
 	public File nativesDir;
@@ -58,6 +62,7 @@ public class GameFolder {
 		this.libsDir = new File(this.gameDir, "libraries");
 		this.cacheDir = new File(this.gameDir, "cache");
 		this.assetsDir = new File(this.gameDir, "assets");
+		this.log_configsDir = new File(this.assetsDir, "log_configs");
 		this.nativesDir = new File(this.gameDir, "bin" + File.separator + "natives");
 		this.nativesCacheDir = new File(this.gameDir, "bin" + File.separator + "cache_natives");
 		
@@ -65,11 +70,19 @@ public class GameFolder {
 		this.getLibsDir().mkdirs();
 		this.getCacheDir().mkdirs();
 		this.getAssetsDir().mkdirs();
+		this.getLogConfigsDir().mkdirs();
 		this.getBinDir().mkdirs();
 		this.getGameDir().mkdirs();
 		this.getNativesDir().mkdirs();
 		this.getNativesCacheDir().mkdirs();
 		this.getPlayDir().mkdirs();
+	}
+
+	/**
+	 * @return The log_configs directory
+	 */
+	public File getLogConfigsDir() {
+		return this.log_configsDir;
 	}
 
 	/**

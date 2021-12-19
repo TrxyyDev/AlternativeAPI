@@ -1,6 +1,7 @@
 package fr.trxyy.alternative.alternative_api.build;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 import java.net.URL;
@@ -18,7 +19,6 @@ import fr.trxyy.alternative.alternative_api.GameForge;
 import fr.trxyy.alternative.alternative_api.GameStyle;
 import fr.trxyy.alternative.alternative_api.minecraft.json.Argument;
 import fr.trxyy.alternative.alternative_api.minecraft.json.ArgumentType;
-import fr.trxyy.alternative.alternative_api.minecraft.utils.EnumJavaVersion;
 import fr.trxyy.alternative.alternative_api.utils.Logger;
 import fr.trxyy.alternative.alternative_api.utils.OperatingSystem;
 import fr.trxyy.alternative.alternative_api.utils.file.FileUtil;
@@ -122,11 +122,10 @@ public class GameRunner {
 		if (this.engine.isOnline()) {
 			if (this.engine.getMinecraftVersion().getJavaVersion() != null) {
 				String component = this.engine.getMinecraftVersion().getJavaVersion().getComponent();
-				if (component.equals(EnumJavaVersion.JAVA_RUNTIME_ALPHA.getCode())) {
+				if (component != null) {
 					commands.add(OperatingSystem.getJavaPath(this.engine));
-				} else if (component.equals(EnumJavaVersion.JRE_LEGACY.getCode())) {
-					commands.add(OperatingSystem.getJavaPath(this.engine));
-				} else {
+				}
+				else {
 					commands.add(OperatingSystem.getJavaPath());
 				}
 			} else {
@@ -136,9 +135,7 @@ public class GameRunner {
 		else {
 			if (this.engine.getGameUpdater().getLocalVersion().getJavaVersion() != null) {
 				String component = this.engine.getGameUpdater().getLocalVersion().getJavaVersion().getComponent();
-				if (component.equals(EnumJavaVersion.JAVA_RUNTIME_ALPHA.getCode())) {
-					commands.add(OperatingSystem.getJavaPath(this.engine));
-				} else if (component.equals(EnumJavaVersion.JRE_LEGACY.getCode())) {
+				if (component != null) {
 					commands.add(OperatingSystem.getJavaPath(this.engine));
 				} else {
 					commands.add(OperatingSystem.getJavaPath());
@@ -185,9 +182,34 @@ public class GameRunner {
 			}
 		}
 		
+		if (this.engine.getMinecraftVersion().getLogging() != null) {
+			File log4jFile = new File(this.engine.getGameFolder().getLogConfigsDir(), this.engine.getMinecraftVersion().getLogging().getClient().getFile().getId());
+			commands.add(this.engine.getMinecraftVersion().getLogging().getClient().getArgument().replace("${path}", log4jFile.getAbsolutePath()));
+		}
+		
 		commands.add("-Djava.library.path=" + engine.getGameFolder().getNativesDir().getAbsolutePath());
 		commands.add("-Dfml.ignoreInvalidMinecraftCertificates=true");
 		commands.add("-Dfml.ignorePatchDiscrepancies=true");
+		
+		// forge 1.18 == Resultats des tests non concluants, a regler par la suite. 1.17 ready ?
+//		commands.add("-DignoreList=bootstraplauncher,securejarhandler,asm-commons,asm-util,asm-analysis,asm-tree,asm,client-extra,fmlcore,javafmllanguage,mclanguage,forge-,${version_name}.jar");
+//		commands.add("-DmergeModules=jna-5.8.0.jar,jna-platform-58.0.jar,java-objc-bridge-1.0.0.jar");
+//		commands.add("-DlibraryDirectory=" + engine.getGameFolder().getLibsDir().getAbsolutePath());
+//		commands.add("-p");
+//		commands.add("${library_directory}/cpw/mods/bootstraplauncher/0.1.17/bootstraplauncher-0.1.17.jar${classpath_separator}${library_directory}/cpw/mods/securejarhandler/0.9.54/securejarhandler-0.9.54.jar${classpath_separator}${library_directory}/org/ow2/asm/asm-commons/9.1/asm-commons-9.1.jar${classpath_separator}${library_directory}/org/ow2/asm/asm-util/9.1/asm-util-9.1.jar${classpath_separator}${library_directory}/org/ow2/asm/asm-analysis/9.1/asm-analysis-9.1.jar${classpath_separator}${library_directory}/org/ow2/asm/asm-tree/9.1/asm-tree-9.1.jar${classpath_separator}${library_directory}/org/ow2/asm/asm/9.1/asm-9.1.jar".replace("${library_directory}", engine.getGameFolder().getLibsDir().getAbsolutePath()));
+//		commands.add(engine.getGameFolder().getLibsDir() + "/cpw/mods/bootstraplauncher/0.1.17/bootstraplauncher-0.1.17.jar");
+//		commands.add(engine.getGameFolder().getLibsDir() + "/cpw/mods/securejarhandler/0.9.54/securejarhandler-0.9.54.jar");
+//		commands.add(engine.getGameFolder().getLibsDir() + "/org/ow2/asm/asm-commons/9.1/asm-commons-9.1.jar");
+//		commands.add(engine.getGameFolder().getLibsDir() + "/org/ow2/asm/asm-util/9.1/asm-util-9.1.jar");
+//		commands.add(engine.getGameFolder().getLibsDir() + "/org/ow2/asm/asm-analysis/9.1/asm-analysis-9.1.jar");
+//		commands.add(engine.getGameFolder().getLibsDir() + "/org/ow2/asm/asm-tree/9.1/asm-tree-9.1.jar");
+//		commands.add(engine.getGameFolder().getLibsDir() + "/org/ow2/asm/asm/9.1/asm-9.1.jar");
+		
+//		commands.add("--add-modules ALL-MODULE-PATH");
+//		commands.add("--add-opens java.base/java.util.jar=cpw.mods.securejarhandler");
+//		commands.add("--add-exports java.base/sun.security.util=cpw.mods.securejarhandler");
+//		commands.add("--add-exports jdk.naming.dns/com.sun.jndi.dns=java.naming");
+		
 
 		boolean is32Bit = "32".equals(System.getProperty("sun.arch.data.model"));
 		String defaultArgument = is32Bit ? "-Xmx512M -Xmn128M" : "-Xmx1G -Xmn128M";

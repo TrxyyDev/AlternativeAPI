@@ -7,9 +7,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.trxyy.alternative.alternative_api.minecraft.utils.Substitutor;
 import fr.trxyy.alternative.alternative_api.minecraft.utils.CompatibilityRule;
-import fr.trxyy.alternative.alternative_api.minecraft.utils.CompatibilityRule.Action;
+import fr.trxyy.alternative.alternative_api.minecraft.utils.Substitutor;
 import fr.trxyy.alternative.alternative_api.utils.OperatingSystem;
 
 /**

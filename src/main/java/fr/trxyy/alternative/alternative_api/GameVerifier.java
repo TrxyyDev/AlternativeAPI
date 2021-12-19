@@ -63,6 +63,11 @@ public class GameVerifier {
 			if (file.getAbsolutePath().endsWith(engine.getGameLinks().getJsonName())) {
 				continue;
 			}
+			if (engine.getMinecraftVersion().getLogging() != null) {
+				if (file.getAbsolutePath().endsWith(engine.getMinecraftVersion().getLogging().getClient().getFile().getId())) {
+					continue;
+				}
+			}
 			
 			if (file.getAbsolutePath().endsWith("downloads.xml")) {
 				continue;

@@ -4,7 +4,8 @@ package fr.trxyy.alternative.alternative_api.utils;
  * @author Trxyy
  */
 public enum Forge {
-	DEFAULT("fmlclient", "net.minecraftforge");
+	FML_CLIENT("fmlclient", "net.minecraftforge"),
+	FORGE_CLIENT("forgeclient", "net.minecraftforge");
 	
 	private String target;
 	private String group;

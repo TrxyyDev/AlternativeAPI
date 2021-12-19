@@ -1,4 +1,4 @@
-package fr.trxyy.alternative.alternative_api.minecraft.json;
+package fr.trxyy.alternative.alternative_api.minecraft.java;
 
 public class JavaVersion {
 

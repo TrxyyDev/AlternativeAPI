@@ -7,6 +7,8 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 import fr.trxyy.alternative.alternative_api.assets.AssetIndexInfo;
+import fr.trxyy.alternative.alternative_api.minecraft.java.JavaVersion;
+import fr.trxyy.alternative.alternative_api.minecraft.log4j.Log4jLogging;
 
 /**
  * @author Trxyy
@@ -53,6 +55,10 @@ public class MinecraftVersion {
 	 * The minecraft java version to use
 	 */
 	public JavaVersion javaVersion;
+	/**
+	 * The Logging file
+	 */
+	public Log4jLogging logging;
 
 	/**
 	 * The Constructor
@@ -82,6 +88,7 @@ public class MinecraftVersion {
 		this.libraries = version.libraries;
 		this.mainClass = version.mainClass;
 		this.assets = version.assets;
+		this.logging = version.logging;
 	}
 	
 	/**
@@ -110,6 +117,13 @@ public class MinecraftVersion {
 	 */
 	public JavaVersion getJavaVersion() {
 		return javaVersion;
+	}
+	
+	/**
+	 * @return The Logging
+	 */
+	public Log4jLogging getLogging() {
+		return logging;
 	}
 
 	/**
