@@ -91,7 +91,7 @@ public class GameUpdater {
 	/**
 	 * The Assets Url
 	 */
-	private static final String ASSETS_URL = "http://resources.download.minecraft.net/";
+	private static final String ASSETS_URL = "https://resources.download.minecraft.net/";
 	
 	public GameUpdater(MinecraftVersion mcVersion, GameEngine engin) {
 		this.minecraftVersion = mcVersion;
