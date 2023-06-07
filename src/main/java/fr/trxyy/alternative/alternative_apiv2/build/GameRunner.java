@@ -75,6 +75,7 @@ public class GameRunner {
 			process.waitFor();
 			int exitVal = process.exitValue();
 			if (exitVal != 0) {
+				System.err.println(process.exitValue());
 				System.out.println("Minecraft has crashed.");
 			}
 		} catch (IOException e) {
@@ -134,9 +135,7 @@ public class GameRunner {
 		
 		if (minecraftVersion.getArguments() != null) {
 			List<Argument> jvmArguments = minecraftVersion.getArguments().get(ArgumentType.JVM);
-			System.out.println("jvmArgs: " + jvmArguments);
 			final String[] anotherArgs = getJvmArguments(jvmArguments);
-			System.out.println("other Args: " + anotherArgs);
 			StringBuffer stringBuffer = new StringBuffer();
 			for (int index = 0; index < anotherArgs.length; index++) {
 				if (anotherArgs[index] != null && !anotherArgs[index].equals("")){
@@ -145,7 +144,6 @@ public class GameRunner {
 			}
 			String splittedString[] = stringBuffer.toString().split(" ");
 			List<String> finaliseList = Arrays.asList(splittedString);
-			System.out.println("final Args: " + finaliseList);
 			commands.addAll(finaliseList);
 		}
 		else {
